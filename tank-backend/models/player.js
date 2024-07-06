@@ -6,7 +6,7 @@ export default class Player {
   static speed = 5;
 
   constructor(data) {
-    this.name = data.name;
+    this.id = data.id;
     this.x = data.x;
     this.y = data.y;
     this.angle = data.angle;
@@ -59,7 +59,6 @@ export default class Player {
     this.hp -= dmg;
 
     if (this.hp <= 0) {
-      console.log("Player defeated!");
       this.isAlive = false;
       this.deathPieces = [...Array(15)].map(() => ({
         x: this.x,
@@ -74,7 +73,7 @@ export default class Player {
 
   toJSON() {
     return {
-      name: this.name,
+      id: this.id,
       x: this.x,
       y: this.y,
       angle: this.angle,

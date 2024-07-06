@@ -5,16 +5,24 @@ import Client from "./utils/client.js";
 
 export default class App {
   constructor() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
     this.lastTime = 0;
   }
 
   async start() {
     Client.connect();
-    this.addEventListeners();
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
+    await new Promise((resolve) => {
+      const checkClientId = () => {
+        if (Client.id !== undefined) {
+          resolve();
+        } else {
+          setTimeout(checkClientId, 100);
+        }
+      };
+      checkClientId();
+    });
+
+    this.addEventListeners();
     this.ui = new UI();
 
     this.gameLoop();

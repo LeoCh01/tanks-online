@@ -57,10 +57,8 @@ export default class Game {
       Game.projectiles.forEach((p) => {
         const distance = Math.sqrt(Math.pow(player.x - p.x, 2) + Math.pow(player.y - p.y, 2));
         if (distance < Player.size / 2 + p.r) {
-          console.log("hit player " + player.name + " hp: " + player.hp);
           player.takingDamage(p.dmg);
           Game.projectiles.splice(Game.projectiles.indexOf(p), 1);
-          console.log("hit player " + player.name + " hp: " + player.hp);
         }
       });
     }

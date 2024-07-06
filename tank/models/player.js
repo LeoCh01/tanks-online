@@ -1,5 +1,4 @@
 import { canvas, ctx, PP } from "../config.js";
-import { Key } from "../utils/events.js";
 import Weapon from "./weapon.js";
 
 export default class Player {
@@ -7,7 +6,7 @@ export default class Player {
   static speed = 5;
 
   constructor(data) {
-    this.name = data.name;
+    this.id = data.id;
     this.x = data.x;
     this.y = data.y;
     this.angle = data.angle;

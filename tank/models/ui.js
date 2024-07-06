@@ -1,14 +1,15 @@
 import { canvas, ctx, PP } from "../config.js";
+import Client from "../utils/client.js";
 
 export default class UI {
-  constructor() {
-    this.player = null;
-  }
+  constructor() {}
 
   draw() {
+    this.player = Client.players.find((p) => p.id === Client.id);
+
     // this.healthBar();
     // this.miniMap();
-    // this.playerCoords();
+    this.playerCoords();
   }
 
   lerpColor(color1, color2, t) {

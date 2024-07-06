@@ -5,7 +5,7 @@ import Projectile from "../models/projectile.js";
 export default class Client {
   static players = [];
   static projectiles = [];
-  static id = -1;
+  static id;
   static socket;
 
   static syncEvent(event, key) {
@@ -14,7 +14,10 @@ export default class Client {
 
   static connect() {
     Client.socket = io.connect(BASE_URL + "/io/tank");
-    Client.id = Client.socket.id;
+
+    Client.socket.on("connect", () => {
+      Client.id = Client.socket.id;
+    });
 
     Client.socket.on("gameState", (data) => {
       Client.players = data.players.map((p) => Player.fromJSON(p));
