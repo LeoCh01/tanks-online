@@ -14,7 +14,7 @@ export default function (io) {
 
   io.on("connection", (socket) => {
     const uid = socket.id;
-    Game.players.set(uid, new Player({ id: uid, x: 5, y: 5, angle: 0, color: "red", hp: 100, isAlive: true }));
+    Game.players.set(uid, new Player({ id: uid, x: 5, y: 5, angle: 0, color: "#ffd670", hp: 100, isAlive: true }));
     console.log("A user connected", uid);
     socket.emit("uid", uid);
     if (Game.players.size === 1) {

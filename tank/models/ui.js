@@ -7,7 +7,7 @@ export default class UI {
   draw() {
     this.player = Client.players.find((p) => p.id === Client.id);
 
-    // this.healthBar();
+    this.healthBar();
     // this.miniMap();
     this.playerCoords();
   }

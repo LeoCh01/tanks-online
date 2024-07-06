@@ -6,7 +6,7 @@ export default class Weapon {
 
   shoot(x, y, angle) {
     const projectile = new Projectile({
-      dmg: 50,
+      dmg: 30,
       x: x + Math.cos(angle),
       y: y + Math.sin(angle),
       r: 0.08,

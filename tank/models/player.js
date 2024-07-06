@@ -12,7 +12,7 @@ export default class Player {
     this.angle = data.angle;
     this.color = data.color;
     this.hp = data.hp;
-    this.weapon = new Weapon();
+    this.weapon = 1;
     this.isAlive = data.isAlive;
     this.deathPieces = data.deathPieces || [];
   }
@@ -42,7 +42,7 @@ export default class Player {
     ctx.translate(PP(this.x), PP(this.y));
     ctx.rotate(this.angle);
     ctx.fillRect(-PP(Player.size / 2), -PP(Player.size / 2), PP(Player.size), PP(Player.size));
-    this.weapon.draw();
+    Weapon.draw(this.weapon);
     ctx.restore();
   }
 
