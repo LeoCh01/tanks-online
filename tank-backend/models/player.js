@@ -12,7 +12,7 @@ export default class Player {
     this.angle = data.angle;
     this.color = data.color;
     this.hp = data.hp;
-    this.weapon = new Weapon();
+    this.weapon = 2;
     this.isAlive = data.isAlive;
     this.deathPieces = data.deathPieces || [];
 
@@ -51,7 +51,7 @@ export default class Player {
     }
 
     if (this.event.isPressed(" ")) {
-      this.weapon.shoot(this.x, this.y, this.angle);
+      Weapon.shoot(this.weapon, this.x, this.y, this.angle);
     }
   }
 
@@ -79,6 +79,7 @@ export default class Player {
       angle: this.angle,
       color: this.color,
       hp: this.hp,
+      weapon: this.weapon,
       isAlive: this.isAlive,
       deathPieces: this.deathPieces,
     };

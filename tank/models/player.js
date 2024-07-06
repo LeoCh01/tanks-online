@@ -12,7 +12,7 @@ export default class Player {
     this.angle = data.angle;
     this.color = data.color;
     this.hp = data.hp;
-    this.weapon = 1;
+    this.weapon = data.weapon;
     this.isAlive = data.isAlive;
     this.deathPieces = data.deathPieces || [];
   }
