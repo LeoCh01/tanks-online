@@ -1,9 +1,10 @@
 import Weapon from "./weapon.js";
 import { Key } from "../utils/events.js";
+import { SIZE } from "../config.js";
 
 export default class Player {
-  static size = 0.8;
-  static speed = 5;
+  static speed = 2;
+  static size = 0.3;
 
   constructor(data) {
     this.id = data.id;
@@ -12,7 +13,7 @@ export default class Player {
     this.angle = data.angle;
     this.color = data.color;
     this.hp = data.hp;
-    this.weapon = 2;
+    this.weapon = 1;
     this.isAlive = data.isAlive;
     this.deathPieces = data.deathPieces || [];
 
@@ -69,6 +70,15 @@ export default class Player {
         duration: Math.random() * 2 + 1,
       }));
     }
+  }
+
+  getRect() {
+    return [
+      { x: this.x - Player.size / 2, y: this.y - Player.size / 2 },
+      { x: this.x + Player.size / 2, y: this.y - Player.size / 2 },
+      { x: this.x + Player.size / 2, y: this.y + Player.size / 2 },
+      { x: this.x - Player.size / 2, y: this.y + Player.size / 2 },
+    ];
   }
 
   toJSON() {

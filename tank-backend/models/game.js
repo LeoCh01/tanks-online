@@ -1,4 +1,6 @@
 import Player from "./player.js";
+import { isCircRectCollision } from "../utils/utils.js";
+import GameMap from "./gameMap.js";
 
 export default class Game {
   static players = new Map();
@@ -7,6 +9,7 @@ export default class Game {
   constructor(io) {
     this.lastTime = 0;
     this.io = io;
+    this.gameMap = new GameMap();
   }
 
   emitAll() {
@@ -16,7 +19,18 @@ export default class Game {
     });
   }
 
+  emitMap() {
+    this.io.emit("gameMap", this.gameMap.toJSON());
+  }
+
   start() {
+    this.gameMap.generate();
+    this.emitMap();
+
+    Game.players.forEach((player) => {
+      [player.x, player.y, player.angle] = this.gameMap.getRandomPosition();
+    });
+
     this.lastTime = Date.now();
     this.intervalID = setInterval(this.gameLoop.bind(this), 1000 / 120);
   }
@@ -55,8 +69,7 @@ export default class Game {
         continue;
       }
       Game.projectiles.forEach((p) => {
-        const distance = Math.sqrt(Math.pow(player.x - p.x, 2) + Math.pow(player.y - p.y, 2));
-        if (distance < Player.size / 2 + p.r) {
+        if (isCircRectCollision(p.x, p.y, p.r, player.getRect())) {
           player.takingDamage(p.dmg);
           Game.projectiles.splice(Game.projectiles.indexOf(p), 1);
         }

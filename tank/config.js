@@ -5,5 +5,5 @@ export const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-export const SIZE = Math.min(canvas.width, canvas.height) / 20;
-export const PP = (pos) => pos * SIZE;
+export const SIZE = 1;
+export const PP = (pos) => pos * ((Math.min(canvas.width, canvas.height) / 10) * SIZE);

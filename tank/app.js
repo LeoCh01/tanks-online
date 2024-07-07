@@ -42,8 +42,15 @@ export default class App {
     ctx.fillStyle = "#80af49";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    this.drawProjectiles();
+    const centerX = canvas.width / 2 - PP(Client.gameMap.width / 2);
+    const centerY = canvas.height / 2 - PP(Client.gameMap.height / 2);
+    ctx.save();
+    ctx.translate(centerX, centerY);
+    this.drawGameMap();
     this.drawPlayers();
+    this.drawProjectiles();
+    ctx.restore();
+
     this.ui.draw();
   }
 
@@ -57,6 +64,10 @@ export default class App {
     Client.projectiles.forEach((p) => {
       p.draw();
     });
+  }
+
+  drawGameMap() {
+    Client.gameMap.draw();
   }
 
   addEventListeners() {

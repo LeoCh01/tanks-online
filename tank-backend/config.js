@@ -1,1 +1,1 @@
-export const adminKey = "";
+export const SIZE = 1;

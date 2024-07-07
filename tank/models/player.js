@@ -1,9 +1,8 @@
-import { canvas, ctx, PP } from "../config.js";
+import { ctx, PP } from "../config.js";
 import Weapon from "./weapon.js";
 
 export default class Player {
-  static size = 0.8;
-  static speed = 5;
+  static size = 0.3;
 
   constructor(data) {
     this.id = data.id;

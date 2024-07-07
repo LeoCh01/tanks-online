@@ -1,5 +1,7 @@
 import Projectile from "./projectile.js";
 import Game from "./game.js";
+import { SIZE } from "../config.js";
+import Player from "./player.js";
 
 export default class Weapon {
   constructor() {}
@@ -24,42 +26,18 @@ export default class Weapon {
   static shootType1(x, y, angle) {
     const projectile = new Projectile({
       dmg: 30,
-      x: x + Math.cos(angle),
-      y: y + Math.sin(angle),
-      r: 0.08,
+      x: x + Math.cos(angle) * Player.size,
+      y: y + Math.sin(angle) * Player.size,
+      r: 0.1 * Player.size,
       angle: angle,
-      duration: 2,
-      speed: 10,
+      duration: 4,
+      speed: 2.5,
     });
 
     return projectile;
   }
 
-  static shootType2(x, y, angle) {
-    const projectile = new Projectile({
-      dmg: 10,
-      x: x + Math.cos(angle),
-      y: y + Math.sin(angle),
-      r: 0.1,
-      angle: angle,
-      duration: 1,
-      speed: 20,
-    });
+  static shootType2(x, y, angle) {}
 
-    return projectile;
-  }
-
-  static shootType3(x, y, angle) {
-    const projectile = new Projectile({
-      dmg: 40,
-      x: x + Math.cos(angle),
-      y: y + Math.sin(angle),
-      r: 0.08,
-      angle: angle,
-      duration: 2,
-      speed: 10,
-    });
-
-    return projectile;
-  }
+  static shootType3(x, y, angle) {}
 }

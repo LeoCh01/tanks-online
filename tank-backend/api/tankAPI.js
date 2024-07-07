@@ -19,6 +19,8 @@ export default function (io) {
     socket.emit("uid", uid);
     if (Game.players.size === 1) {
       game.start();
+    } else {
+      game.emitMap();
     }
 
     socket.on("event", (data) => {

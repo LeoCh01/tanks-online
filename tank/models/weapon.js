@@ -1,6 +1,5 @@
 import { ctx, PP } from "../config.js";
-import Projectile from "./projectile.js";
-import Client from "../utils/client.js";
+import Player from "./player.js";
 
 export default class Weapon {
   constructor() {}
@@ -24,21 +23,10 @@ export default class Weapon {
 
   static drawType1() {
     ctx.fillStyle = "#ff6767";
-    ctx.fillRect(-PP(0.1), -PP(0.1), PP(1), PP(0.2));
+    ctx.fillRect(-PP(0.1 * Player.size), -PP(0.15 * Player.size), PP(Player.size), PP(0.3 * Player.size));
   }
 
-  static drawType2() {
-    ctx.fillStyle = "#677bff";
-    ctx.fillRect(-PP(0.1), -PP(0.1), PP(1), PP(0.2));
-  }
+  static drawType2() {}
 
-  static drawType3() {
-    ctx.fillStyle = "#ff6767";
-    ctx.fillRect(-PP(0.1), -PP(0.1), PP(1), PP(0.2));
-  }
-
-  static drawType4() {
-    ctx.fillStyle = "#ff6767";
-    ctx.fillRect(-PP(0.1), -PP(0.1), PP(1), PP(0.2));
-  }
+  static drawType3() {}
 }

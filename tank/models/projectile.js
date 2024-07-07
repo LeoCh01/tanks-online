@@ -13,7 +13,6 @@ export default class Projectile {
 
   draw() {
     ctx.fillStyle = "#000000";
-    ctx.save();
     ctx.beginPath();
     ctx.arc(PP(this.x), PP(this.y), PP(this.r), 0, Math.PI * 2);
     ctx.fill();
