@@ -1,5 +1,5 @@
 import Player from "./player.js";
-import { isCircRectCollision } from "../utils/utils.js";
+import { closestPointOnSegment, getNormal, isCircLineCollision, isCircRectCollision } from "../utils/utils.js";
 import GameMap from "./gameMap.js";
 
 export default class Game {
@@ -64,16 +64,34 @@ export default class Game {
     });
 
     // Check for collisions
-    for (const player of Game.players.values()) {
-      if (!player.isAlive) {
-        continue;
-      }
-      Game.projectiles.forEach((p) => {
+    Game.projectiles.forEach((p) => {
+      for (const player of Game.players.values()) {
+        if (!player.isAlive) {
+          continue;
+        }
         if (isCircRectCollision(p.x, p.y, p.r, player.getRect())) {
           player.takingDamage(p.dmg);
           Game.projectiles.splice(Game.projectiles.indexOf(p), 1);
         }
-      });
-    }
+      }
+
+      for (const wall of this.gameMap.walls) {
+        for (let i = 0; i < 4; i++) {
+          let w1 = GameMap.toRect(wall)[i];
+          let w2 = GameMap.toRect(wall)[(i + 1) % 4];
+
+          if (isCircLineCollision(p.x, p.y, p.r, w1, w2)) {
+            let closest = closestPointOnSegment(p.x, p.y, w1.x, w1.y, w2.x, w2.y);
+            let distance = Math.hypot(p.x - closest.x, p.y - closest.y);
+            let penetration = p.r - distance;
+            let normal = getNormal(w1, w2);
+
+            p.x += normal.x * penetration;
+            p.y += normal.y * penetration;
+            p.reflect(normal);
+          }
+        }
+      }
+    });
   }
 }

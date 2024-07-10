@@ -30,7 +30,7 @@ export default class Weapon {
       y: y + Math.sin(angle) * Player.size,
       r: 0.1 * Player.size,
       angle: angle,
-      duration: 4,
+      duration: 10,
       speed: 2.5,
     });
 

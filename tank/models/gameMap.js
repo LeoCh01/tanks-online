@@ -24,17 +24,11 @@ export default class GameMap {
     let y2 = PP(wall.y2);
     let t = PP(thickness);
 
-    if (x1 === x2) {
-      let x = x1 - t / 2;
-      let y = Math.min(y1, y2);
-      let height = Math.abs(y2 - y1);
-      ctx.fillRect(x, y, t, height);
-    } else if (y1 === y2) {
-      let x = Math.min(x1, x2);
-      let y = y1 - t / 2;
-      let width = Math.abs(x2 - x1);
-      ctx.fillRect(x, y, width, t);
-    }
+    let x = Math.min(x1, x2) - t / 2;
+    let y = Math.min(y1, y2) - t / 2;
+    let width = Math.abs(x2 - x1) + t;
+    let height = Math.abs(y2 - y1) + t;
+    ctx.fillRect(x, y, width, height);
   }
 
   static fromJSON(data) {
