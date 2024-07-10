@@ -7,7 +7,6 @@ export default class Game {
   static projectiles = [];
 
   constructor(io) {
-    this.lastTime = 0;
     this.io = io;
     this.gameMap = new GameMap();
   }
@@ -23,22 +22,39 @@ export default class Game {
     this.io.emit("gameMap", this.gameMap.toJSON());
   }
 
+  async createNewPlayer(uid) {
+    Game.players.set(uid, new Player({ id: uid, x: -1, y: -1, angle: 0, color: "#ffd670", hp: 100, isAlive: true }));
+    this.emitAll();
+    this.emitMap();
+
+    if (Game.players.size === 1) {
+      this.start();
+    } else if (Game.players.size === 2) {
+      this.stop();
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      this.start();
+    } else {
+    }
+  }
+
   start() {
     this.gameMap.generate();
     this.emitMap();
 
     Game.players.forEach((player) => {
-      [player.x, player.y, player.angle] = this.gameMap.getRandomPosition();
+      player.reset(this.gameMap.getRandomPosition());
     });
 
+    console.log("Game started");
+
+    Game.projectiles = [];
     this.lastTime = Date.now();
+    this.isGameFinished = false;
     this.intervalID = setInterval(this.gameLoop.bind(this), 1000 / 120);
   }
 
   stop() {
     clearInterval(this.intervalID);
-    this.lastTime = 0;
-    Game.projectiles = [];
   }
 
   gameLoop() {
@@ -93,5 +109,26 @@ export default class Game {
         }
       }
     });
+
+    // On game end
+    if (!this.isGameFinished && this.alivePlayersCount() <= 1 && Game.players.size > 1) {
+      this.isGameFinished = true;
+      new Promise((resolve) => setTimeout(resolve, 2000)).then(() => {
+        this.stop();
+        new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
+          this.start();
+        });
+      });
+    }
+  }
+
+  alivePlayersCount() {
+    let count = 0;
+    for (const player of Game.players.values()) {
+      if (player.isAlive) {
+        count++;
+      }
+    }
+    return count;
   }
 }

@@ -8,14 +8,14 @@ export default class Player {
 
   constructor(data) {
     this.id = data.id;
-    this.x = data.x;
-    this.y = data.y;
-    this.angle = data.angle;
-    this.color = data.color;
+    this.x = -1;
+    this.y = -1;
+    this.angle = 0;
+    this.color = "#ffd670";
     this.hp = data.hp;
     this.weapon = 1;
-    this.isAlive = data.isAlive;
-    this.deathPieces = data.deathPieces || [];
+    this.isAlive = true;
+    this.deathPieces = [];
 
     this.event = new Key();
   }
@@ -54,6 +54,16 @@ export default class Player {
     if (this.event.isPressed(" ")) {
       Weapon.shoot(this.weapon, this.x, this.y, this.angle);
     }
+  }
+
+  reset([x, y, angle]) {
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
+    this.hp = 100;
+    this.weapon = 1;
+    this.isAlive = true;
+    this.deathPieces = [];
   }
 
   takingDamage(dmg) {
