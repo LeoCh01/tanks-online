@@ -5,17 +5,12 @@ import { SIZE } from "../config.js";
 export default class Player {
   static speed = 2;
   static size = 0.3;
+  static colors = ["#ffd670", "#98c1d9", "#f3a712", "#2a363b"];
 
   constructor(data) {
     this.id = data.id;
-    this.x = -1;
-    this.y = -1;
-    this.angle = 0;
-    this.color = "#ffd670";
-    this.hp = data.hp;
-    this.weapon = 1;
-    this.isAlive = true;
-    this.deathPieces = [];
+    this.color = data.color;
+    this.reset([0, 0, 0]);
 
     this.event = new Key();
   }
@@ -41,8 +36,8 @@ export default class Player {
       this.y += dy;
     }
     if (this.event.keys["ArrowDown"] || this.event.keys["s"]) {
-      this.x -= dx;
-      this.y -= dy;
+      this.x -= dx * 0.8;
+      this.y -= dy * 0.8;
     }
     if (this.event.keys["ArrowLeft"] || this.event.keys["a"]) {
       this.angle -= 4 * dt;
@@ -61,7 +56,7 @@ export default class Player {
     this.y = y;
     this.angle = angle;
     this.hp = 100;
-    this.weapon = 1;
+    this.weapon = Math.floor(Math.random() * 2) + 1;
     this.isAlive = true;
     this.deathPieces = [];
   }

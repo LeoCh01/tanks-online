@@ -23,7 +23,7 @@ export default class Game {
   }
 
   async createNewPlayer(uid) {
-    Game.players.set(uid, new Player({ id: uid, x: -1, y: -1, angle: 0, color: "#ffd670", hp: 100, isAlive: true }));
+    Game.players.set(uid, new Player({ id: uid, color: Player.colors[Game.players.size] }));
     this.emitAll();
     this.emitMap();
 
@@ -37,8 +37,8 @@ export default class Game {
     }
   }
 
-  start() {
-    this.gameMap.generate();
+  async start() {
+    await this.gameMap.generate();
     this.emitMap();
 
     Game.players.forEach((player) => {
@@ -111,11 +111,15 @@ export default class Game {
     });
 
     // On game end
-    if (!this.isGameFinished && this.alivePlayersCount() <= 1 && Game.players.size > 1) {
+    if (
+      !this.isGameFinished &&
+      ((this.alivePlayersCount() <= 1 && Game.players.size > 1) ||
+        (this.alivePlayersCount() === 0 && Game.players.size === 1))
+    ) {
       this.isGameFinished = true;
-      new Promise((resolve) => setTimeout(resolve, 2000)).then(() => {
+      new Promise((resolve) => setTimeout(resolve, 1500)).then(() => {
         this.stop();
-        new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
+        new Promise((resolve) => setTimeout(resolve, 750)).then(() => {
           this.start();
         });
       });

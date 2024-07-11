@@ -26,7 +26,10 @@ export default class Weapon {
     ctx.fillRect(-PP(0.1 * Player.size), -PP(0.15 * Player.size), PP(Player.size), PP(0.3 * Player.size));
   }
 
-  static drawType2() {}
+  static drawType2() {
+    ctx.fillStyle = "#222222";
+    ctx.fillRect(-PP(0.1 * Player.size), -PP(0.2 * Player.size), PP(Player.size), PP(0.4 * Player.size));
+  }
 
   static drawType3() {}
 }

@@ -1,5 +1,8 @@
+import fs from "fs";
+
 export default class GameMap {
   static wallThickness = 0.1;
+  static data = JSON.parse(fs.readFileSync("./maps.json", "utf8"));
 
   constructor() {
     this.width = 0;
@@ -7,19 +10,11 @@ export default class GameMap {
     this.walls = [];
   }
 
-  generate() {
-    this.width = 8;
-    this.height = 8;
-    this.walls = [
-      { x1: 0, y1: 1, x2: 1, y2: 1 },
-      { x1: 3, y1: 3, x2: 4, y2: 3 },
-      { x1: 6, y1: 6, x2: 6, y2: 7 },
-      { x1: 2, y1: 2, x2: 2, y2: 5 },
-      { x1: 4, y1: 1, x2: 4, y2: 2 },
-      { x1: 5, y1: 4, x2: 7, y2: 4 },
-      { x1: 1, y1: 5, x2: 3, y2: 5 },
-      { x1: 7, y1: 2, x2: 7, y2: 3 },
-    ];
+  async generate() {
+    const mapIndex = Math.floor(Math.random() * 3 + 1);
+    this.width = GameMap.data[mapIndex].width;
+    this.height = GameMap.data[mapIndex].height;
+    this.walls = GameMap.data[mapIndex].walls;
 
     this.walls.push({ x1: 0, y1: 0, x2: this.width, y2: 0 });
     this.walls.push({ x1: 0, y1: 0, x2: 0, y2: this.height });

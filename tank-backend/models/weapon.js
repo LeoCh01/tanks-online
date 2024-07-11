@@ -24,20 +24,28 @@ export default class Weapon {
   }
 
   static shootType1(x, y, angle) {
-    const projectile = new Projectile({
+    return new Projectile({
       dmg: 30,
       x: x + Math.cos(angle) * Player.size,
       y: y + Math.sin(angle) * Player.size,
       r: 0.1 * Player.size,
       angle: angle,
-      duration: 10,
+      duration: 8,
       speed: 2.5,
     });
-
-    return projectile;
   }
 
-  static shootType2(x, y, angle) {}
+  static shootType2(x, y, angle) {
+    return new Projectile({
+      dmg: 80,
+      x: x + Math.cos(angle) * Player.size * 1.2,
+      y: y + Math.sin(angle) * Player.size * 1.2,
+      r: 0.5 * Player.size,
+      angle: angle,
+      duration: 3,
+      speed: 5,
+    });
+  }
 
   static shootType3(x, y, angle) {}
 }
