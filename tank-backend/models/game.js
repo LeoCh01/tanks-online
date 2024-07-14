@@ -1,5 +1,11 @@
 import Player from "./player.js";
-import { closestPointOnSegment, getNormal, isCircLineCollision, isCircRectCollision } from "../utils/utils.js";
+import {
+  closestPointOnSegment,
+  getNormal,
+  isCircLineCollision,
+  isCircRectCollision,
+  isRectRectCollision,
+} from "../utils/utils.js";
 import GameMap from "./gameMap.js";
 
 export default class Game {
@@ -102,13 +108,27 @@ export default class Game {
             let penetration = p.r - distance;
             let normal = getNormal(w1, w2);
 
-            p.x += normal.x * penetration;
-            p.y += normal.y * penetration;
+            p.x += normal.x * penetration * 1.5;
+            p.y += normal.y * penetration * 1.5;
             p.reflect(normal);
           }
         }
       }
     });
+
+    for (const player of Game.players.values()) {
+      if (!player.isAlive) {
+        continue;
+      }
+      for (const wall of this.gameMap.walls) {
+        if (isRectRectCollision(player.getRect(), GameMap.toRect(wall))) {
+          player.color = "red";
+          break;
+        } else {
+          player.color = "blue";
+        }
+      }
+    }
 
     // On game end
     if (

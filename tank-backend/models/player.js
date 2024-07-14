@@ -78,11 +78,26 @@ export default class Player {
   }
 
   getRect() {
+    const cosAngle = Math.cos(this.angle);
+    const sinAngle = Math.sin(this.angle);
+
     return [
-      { x: this.x - Player.size / 2, y: this.y - Player.size / 2 },
-      { x: this.x + Player.size / 2, y: this.y - Player.size / 2 },
-      { x: this.x + Player.size / 2, y: this.y + Player.size / 2 },
-      { x: this.x - Player.size / 2, y: this.y + Player.size / 2 },
+      {
+        x: this.x - (Player.size / 2) * cosAngle - (Player.size / 2) * sinAngle,
+        y: this.y - (Player.size / 2) * sinAngle + (Player.size / 2) * cosAngle,
+      },
+      {
+        x: this.x + (Player.size / 2) * cosAngle - (Player.size / 2) * sinAngle,
+        y: this.y + (Player.size / 2) * sinAngle + (Player.size / 2) * cosAngle,
+      },
+      {
+        x: this.x + (Player.size / 2) * cosAngle + (Player.size / 2) * sinAngle,
+        y: this.y + (Player.size / 2) * sinAngle - (Player.size / 2) * cosAngle,
+      },
+      {
+        x: this.x - (Player.size / 2) * cosAngle + (Player.size / 2) * sinAngle,
+        y: this.y - (Player.size / 2) * sinAngle - (Player.size / 2) * cosAngle,
+      },
     ];
   }
 
