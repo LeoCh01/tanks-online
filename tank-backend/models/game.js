@@ -121,11 +121,10 @@ export default class Game {
         continue;
       }
       for (const wall of this.gameMap.walls) {
-        if (isRectRectCollision(player.getRect(), GameMap.toRect(wall))) {
-          player.color = "red";
-          break;
-        } else {
-          player.color = "blue";
+        const mtv = isRectRectCollision(player.getRect(), GameMap.toRect(wall));
+        if (mtv) {
+          player.x += mtv.x * 5;
+          player.y += mtv.y * 5;
         }
       }
     }
@@ -139,6 +138,11 @@ export default class Game {
       this.isGameFinished = true;
       new Promise((resolve) => setTimeout(resolve, 1500)).then(() => {
         this.stop();
+        for (const player of Game.players.values()) {
+          if (player.isAlive) {
+            player.score++;
+          }
+        }
         new Promise((resolve) => setTimeout(resolve, 750)).then(() => {
           this.start();
         });

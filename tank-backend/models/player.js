@@ -10,6 +10,7 @@ export default class Player {
   constructor(data) {
     this.id = data.id;
     this.color = data.color;
+    this.score = 0;
     this.reset([0, 0, 0]);
 
     this.event = new Key();
@@ -49,6 +50,19 @@ export default class Player {
     if (this.event.isPressed(" ")) {
       Weapon.shoot(this.weapon, this.x, this.y, this.angle);
     }
+
+    if (this.event.isPressed("1")) {
+      this.isEmote = true;
+      this.emoteCount = 100;
+      this.emotePos = [this.x, this.y];
+    }
+
+    if (this.isEmote) {
+      this.emoteCount--;
+      if (this.emoteCount === 0) {
+        this.isEmote = false;
+      }
+    }
   }
 
   reset([x, y, angle]) {
@@ -59,6 +73,7 @@ export default class Player {
     this.weapon = Math.floor(Math.random() * 2) + 1;
     this.isAlive = true;
     this.deathPieces = [];
+    this.isEmote = false;
   }
 
   takingDamage(dmg) {
@@ -112,6 +127,10 @@ export default class Player {
       weapon: this.weapon,
       isAlive: this.isAlive,
       deathPieces: this.deathPieces,
+      score: this.score,
+      isEmote: this.isEmote,
+      emoteCount: this.emoteCount,
+      emotePos: this.emotePos,
     };
   }
 }
