@@ -35,5 +35,9 @@ export default class Client {
     Client.socket.on("gameMap", (data) => {
       Client.gameMap = GameMap.fromJSON(data);
     });
+
+    Client.socket.on("userDisconnected", (uid) => {
+      delete Client.players[uid];
+    });
   }
 }

@@ -10,6 +10,7 @@ export default class EmoteManager {
     this.emote = 0;
     this.count = 0;
     this.pos = { x: 0, y: 0 };
+    this.image = new Image();
   }
 
   draw() {
@@ -20,10 +21,9 @@ export default class EmoteManager {
       const emoteY = (-emoteSize / 2) * emoteScale + PP(this.pos.y);
       const emoteWidth = emoteSize * emoteScale;
       const emoteHeight = emoteSize * emoteScale;
-      const image = new Image();
-      image.src = EmoteManager.emotes[this.emote].imagePath;
+      this.image.src = EmoteManager.emotes[this.emote].imagePath;
 
-      ctx.drawImage(image, emoteX, emoteY, emoteWidth, emoteHeight);
+      ctx.drawImage(this.image, emoteX, emoteY, emoteWidth, emoteHeight);
     }
   }
 
@@ -40,8 +40,6 @@ export default class EmoteManager {
         this.audio.pause();
         this.audio.currentTime = 0;
       }
-
-      console.log(this.emote);
 
       this.audio = new Audio(EmoteManager.emotes[this.emote].audioPath);
       this.audio.play();
