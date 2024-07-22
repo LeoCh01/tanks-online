@@ -38,8 +38,8 @@ export default class Weapon {
   static shootType2(x, y, angle) {
     return new Projectile({
       dmg: 80,
-      x: x + Math.cos(angle) * Player.size * 1.2,
-      y: y + Math.sin(angle) * Player.size * 1.2,
+      x: x + Math.cos(angle) * Player.size,
+      y: y + Math.sin(angle) * Player.size,
       r: 0.5 * Player.size,
       angle: angle,
       duration: 3,

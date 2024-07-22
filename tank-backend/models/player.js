@@ -5,11 +5,9 @@ import { SIZE } from "../config.js";
 export default class Player {
   static speed = 2;
   static size = 0.3;
-  static colors = ["#ffd670", "#98c1d9", "#f3a712", "#2a363b"];
 
   constructor(data) {
     this.id = data.id;
-    this.color = data.color;
     this.score = 0;
     this.reset([0, 0, 0]);
 
@@ -51,16 +49,18 @@ export default class Player {
       Weapon.shoot(this.weapon, this.x, this.y, this.angle);
     }
 
-    if (this.event.isPressed("1")) {
-      this.isEmote = true;
-      this.emoteCount = 100;
-      this.emotePos = [this.x, this.y];
+    for (let i = 1; i <= 4; i++) {
+      if (this.event.isPressed(i.toString())) {
+        this.emote = i;
+        this.emoteCount = 100;
+        this.emotePos = { x: this.x, y: this.y };
+      }
     }
 
-    if (this.isEmote) {
+    if (this.emote) {
       this.emoteCount--;
       if (this.emoteCount === 0) {
-        this.isEmote = false;
+        this.emote = 0;
       }
     }
   }
@@ -73,7 +73,7 @@ export default class Player {
     this.weapon = Math.floor(Math.random() * 2) + 1;
     this.isAlive = true;
     this.deathPieces = [];
-    this.isEmote = false;
+    this.emote = 0;
   }
 
   takingDamage(dmg) {
@@ -128,9 +128,7 @@ export default class Player {
       isAlive: this.isAlive,
       deathPieces: this.deathPieces,
       score: this.score,
-      isEmote: this.isEmote,
-      emoteCount: this.emoteCount,
-      emotePos: this.emotePos,
+      emotes: { emote: this.emote, count: this.emoteCount, pos: this.emotePos },
     };
   }
 }

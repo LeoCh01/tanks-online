@@ -1,11 +1,11 @@
 import { canvas, ctx, PP } from "../config.js";
-import Client from "../utils/client.js";
+import Client from "./client.js";
 
 export default class UI {
   constructor() {}
 
   draw() {
-    this.player = Client.players.find((p) => p.id === Client.id);
+    this.player = Client.players[Client.id];
 
     this.healthBar();
     // this.miniMap();

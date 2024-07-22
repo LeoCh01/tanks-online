@@ -1,6 +1,6 @@
 import { canvas, ctx, PP } from "./config.js";
 import Player from "./models/player.js";
-import UI from "./models/ui.js";
+import UI from "./utils/ui.js";
 import Client from "./utils/client.js";
 
 export default class App {
@@ -55,8 +55,8 @@ export default class App {
   }
 
   drawPlayers() {
-    Client.players.forEach((player) => {
-      player.draw();
+    Object.values(Client.players).forEach((p) => {
+      p.draw();
     });
   }
 

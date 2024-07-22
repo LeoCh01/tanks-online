@@ -29,7 +29,7 @@ export default class Game {
   }
 
   async createNewPlayer(uid) {
-    Game.players.set(uid, new Player({ id: uid, color: Player.colors[Game.players.size] }));
+    Game.players.set(uid, new Player({ id: uid }));
     this.emitAll();
     this.emitMap();
 

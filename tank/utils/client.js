@@ -4,7 +4,7 @@ import Projectile from "../models/projectile.js";
 import GameMap from "../models/gameMap.js";
 
 export default class Client {
-  static players = [];
+  static players = {};
   static projectiles = [];
   static gameMap;
   static id;
@@ -22,7 +22,13 @@ export default class Client {
     });
 
     Client.socket.on("gameState", (data) => {
-      Client.players = data.players.map((p) => Player.fromJSON(p));
+      data.players.forEach((p) => {
+        if (Client.players[p.id]) {
+          Client.players[p.id].update(p);
+        } else {
+          Client.players[p.id] = new Player(p);
+        }
+      });
       Client.projectiles = data.projectiles.map((p) => Projectile.fromJSON(p));
     });
 

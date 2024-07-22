@@ -30,5 +30,5 @@ app.use(
 // Routes
 app.use("api/tank", tankAPI(io));
 
-server.listen(PORT, "192.168.2.42", () => console.log(`Server running on port ${PORT}`));
-// server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// server.listen(PORT, "192.168.2.42", () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));

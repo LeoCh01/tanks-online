@@ -19,6 +19,10 @@ export default class Weapon {
         this.drawType4();
         break;
     }
+
+    ctx.strokeStyle = "#000000";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(-PP(0.1 * Player.size), -PP(0.15 * Player.size), PP(Player.size), PP(0.3 * Player.size));
   }
 
   static drawType1() {
