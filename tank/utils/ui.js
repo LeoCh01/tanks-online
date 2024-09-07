@@ -7,9 +7,10 @@ export default class UI {
   draw() {
     this.player = Client.players[Client.id];
 
-    this.healthBar();
+    // this.healthBar();
     // this.miniMap();
-    this.playerCoords();
+    // this.playerCoords();
+    this.playerControls();
   }
 
   lerpColor(color1, color2, t) {
@@ -58,6 +59,22 @@ export default class UI {
     ctx.font = "20px Arial";
     ctx.fillText(`X: ${this.player.x.toFixed(2)}`, 30, 250);
     ctx.fillText(`Y: ${this.player.y.toFixed(2)}`, 30, 280);
+  }
+
+  playerScore() {
+    ctx.fillStyle = "black";
+    ctx.font = "bold 24px Arial";
+    ctx.fillText(`Wins: ${this.player.score}`, 30, 310);
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 1;
+    ctx.strokeText(`Wins: ${this.player.score}`, 30, 310);
+  }
+
+  playerControls() {
+    let img = new Image();
+    img.src = "./res/controls.png";
+
+    ctx.drawImage(img, canvas.width - 200, canvas.height - 200, 150, 150);
   }
 }
 

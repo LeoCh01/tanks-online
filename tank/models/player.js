@@ -35,17 +35,25 @@ export default class Player {
 
     this.emoteManager.draw();
 
+    ctx.save();
+    ctx.translate(PP(this.x), PP(this.y));
     ctx.fillStyle = this.color;
     ctx.font = "12px Arial";
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
 
-    ctx.save();
-    ctx.translate(PP(this.x), PP(this.y));
+    ctx.fillStyle = "#545454";
+    ctx.fillRect(-PP(Player.size / 2), -PP(Player.size / 2) - 20, PP(Player.size), 5);
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(-PP(Player.size / 2), -PP(Player.size / 2) - 20, PP(Player.size), 5);
+    ctx.fillStyle = "red";
+    ctx.fillRect(-PP(Player.size / 2), -PP(Player.size / 2) - 20, (PP(Player.size) * this.hp) / 100, 5);
 
-    ctx.fillText(this.score, 0, -PP(Player.size / 2) - 25);
-    ctx.globalAlpha = 0.5;
-    ctx.fillText(`(${this.x.toFixed(2)}, ${this.y.toFixed(2)})`, 0, -PP(Player.size / 2) - 10);
+    ctx.fillText(this.id.substring(0, 4), 0, -PP(Player.size / 2) - 25);
+    // ctx.globalAlpha = 0.5;
+    // ctx.fillText(`(${this.x.toFixed(2)}, ${this.y.toFixed(2)})`, 0, -PP(Player.size / 2) - 10);
+
     ctx.restore();
 
     ctx.fillStyle = this.color;

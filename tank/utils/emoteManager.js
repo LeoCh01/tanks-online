@@ -4,6 +4,7 @@ export default class EmoteManager {
   static emotes = {
     1: { imagePath: "./res/emote1.png", audioPath: "./res/emote1.mp3" },
     2: { imagePath: "./res/emote2.png", audioPath: "./res/emote2.mp3" },
+    3: { imagePath: "./res/emote3.png", audioPath: "./res/emote3.mp3" },
   };
 
   constructor() {
@@ -28,10 +29,14 @@ export default class EmoteManager {
   }
 
   update(data) {
+    if (!(data.emote in EmoteManager.emotes) && data.emote !== 0) {
+      return;
+    }
+
     this.emote = data.emote;
     this.count = data.count;
     this.pos = data.pos;
-    this.playEmote(this.emote);
+    this.playEmote();
   }
 
   playEmote() {

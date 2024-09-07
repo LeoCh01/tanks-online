@@ -51,6 +51,7 @@ export default class App {
     this.drawProjectiles();
     ctx.restore();
 
+    this.drawScoreBoard();
     this.ui.draw();
   }
 
@@ -63,6 +64,22 @@ export default class App {
   drawProjectiles() {
     Client.projectiles.forEach((p) => {
       p.draw();
+    });
+  }
+
+  drawScoreBoard() {
+    const sortedPlayers = Object.values(Client.players).sort((a, b) => b.score - a.score);
+
+    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    ctx.fillRect(10, 10, 200, 200);
+
+    ctx.fillStyle = "white";
+    ctx.font = "16px Arial";
+    ctx.textAlign = "left";
+    ctx.fillText("Scoreboard", 20, 30);
+
+    sortedPlayers.forEach((p, i) => {
+      ctx.fillText(`${i + 1}. ${p.id.substring(0, 4)} - ${p.score}`, 20, 50 + i * 20);
     });
   }
 

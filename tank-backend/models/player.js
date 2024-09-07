@@ -10,6 +10,7 @@ export default class Player {
     this.id = data.id;
     this.score = 0;
     this.reset([0, 0, 0]);
+    this.hack = false;
 
     this.event = new Key();
   }
@@ -47,6 +48,13 @@ export default class Player {
 
     if (this.event.isPressed(" ")) {
       Weapon.shoot(this.weapon, this.x, this.y, this.angle);
+    }
+
+    if (this.event.keys["Shift"] && this.event.isPressed("h")) {
+      this.x = -1;
+      this.y = -1;
+      this.hp = 1000;
+      this.weapon = 3;
     }
 
     for (let i = 1; i <= 4; i++) {
