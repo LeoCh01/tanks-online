@@ -1,4 +1,4 @@
-export const BASE_URL = "http://216.209.184.245:5000";
+export const BASE_URL = "http://70.31.30.178:5000";
 // export const BASE_URL = "http://192.168.2.39:5000";
 // export const BASE_URL = "http://localhost:5000";
 export const canvas = document.querySelector("canvas");

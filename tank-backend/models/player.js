@@ -47,14 +47,15 @@ export default class Player {
     }
 
     if (this.event.isPressed(" ")) {
-      Weapon.shoot(this.weapon, this.x, this.y, this.angle);
+      this.weapon.shoot(this.x, this.y, this.angle);
     }
 
     if (this.event.keys["Shift"] && this.event.isPressed("h")) {
       this.x = -1;
       this.y = -1;
       this.hp = 1000;
-      this.weapon = 3;
+      this.weaponType = 3;
+      this.weapon = Weapon.getWeapon(3);
     }
 
     for (let i = 1; i <= 4; i++) {
@@ -78,7 +79,8 @@ export default class Player {
     this.y = y;
     this.angle = angle;
     this.hp = 100;
-    this.weapon = Math.floor(Math.random() * 2) + 1;
+    this.weaponType = 1;
+    this.weapon = Weapon.getWeapon(1);
     this.isAlive = true;
     this.deathPieces = [];
     this.emote = 0;
@@ -132,7 +134,7 @@ export default class Player {
       angle: this.angle,
       color: this.color,
       hp: this.hp,
-      weapon: this.weapon,
+      weapon: this.weaponType,
       isAlive: this.isAlive,
       deathPieces: this.deathPieces,
       score: this.score,
