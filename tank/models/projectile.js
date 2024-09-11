@@ -9,10 +9,11 @@ export default class Projectile {
     this.angle = data.angle;
     this.duration = data.duration;
     this.speed = data.speed;
+    this.color = data.color || "#000";
   }
 
   draw() {
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(PP(this.x), PP(this.y), PP(this.r), 0, Math.PI * 2);
     ctx.fill();

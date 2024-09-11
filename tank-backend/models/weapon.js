@@ -56,6 +56,8 @@ export default class Weapon {
       angle: angle,
       duration: 15,
       speed: 1,
+      color: "#ff0000",
+      isPen: true,
     });
   }
 }

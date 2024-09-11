@@ -7,6 +7,8 @@ export default class Projectile {
     this.angle = data.angle;
     this.duration = data.duration;
     this.speed = data.speed;
+    this.color = data.color || "#000";
+    this.isPen = data.isPen || false;
   }
 
   update(dt) {
@@ -41,6 +43,7 @@ export default class Projectile {
       angle: this.angle,
       duration: this.duration,
       speed: this.speed,
+      color: this.color,
     };
   }
 }

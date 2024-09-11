@@ -97,20 +97,22 @@ export default class Game {
         }
       }
 
-      for (const wall of this.gameMap.walls) {
-        for (let i = 0; i < 4; i++) {
-          let w1 = GameMap.toRect(wall)[i];
-          let w2 = GameMap.toRect(wall)[(i + 1) % 4];
+      if (!p.isPen) {
+        for (const wall of this.gameMap.walls) {
+          for (let i = 0; i < 4; i++) {
+            let w1 = GameMap.toRect(wall)[i];
+            let w2 = GameMap.toRect(wall)[(i + 1) % 4];
 
-          if (isCircLineCollision(p.x, p.y, p.r, w1, w2)) {
-            let closest = closestPointOnSegment(p.x, p.y, w1.x, w1.y, w2.x, w2.y);
-            let distance = Math.hypot(p.x - closest.x, p.y - closest.y);
-            let penetration = p.r - distance;
-            let normal = getNormal(w1, w2);
+            if (isCircLineCollision(p.x, p.y, p.r, w1, w2)) {
+              let closest = closestPointOnSegment(p.x, p.y, w1.x, w1.y, w2.x, w2.y);
+              let distance = Math.hypot(p.x - closest.x, p.y - closest.y);
+              let penetration = p.r - distance;
+              let normal = getNormal(w1, w2);
 
-            p.x += normal.x * penetration * 1.5;
-            p.y += normal.y * penetration * 1.5;
-            p.reflect(normal);
+              p.x += normal.x * penetration * 1.5;
+              p.y += normal.y * penetration * 1.5;
+              p.reflect(normal);
+            }
           }
         }
       }
